@@ -1,0 +1,1 @@
+export { ControlledEdit as default } from "./editer";

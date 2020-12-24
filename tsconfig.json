@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "allowUnusedLabels":true,
+    "allowUnreachableCode":true,
+    "downlevelIteration":true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "experimentalDecorators":true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react"
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/components/dataView/content/table.tsx",
+    "**/components/dataView/header/search.tsx",
+    "**/components/dataView/other/infoShell/index.tsx",
+    "**/components/dataView/other/dialog/index.tsx",
+    "**/components/form/formItem/index.tsx",
+  ]
+}

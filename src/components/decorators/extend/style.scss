@@ -1,0 +1,60 @@
+.demo-model-move {
+    &.ant-modal-wrap {
+        .ant-modal-header {
+            position: relative;
+            padding: 0;
+            background: #fafafa;
+            .demo-model-move-title {
+                padding: 16px 24px;
+                min-height: 56px;
+                box-sizing: border-box;
+                cursor: all-scroll;
+            }
+        }
+
+        .ant-modal {
+            // top: 0;
+            top: 50px;
+            max-height: 100vh;
+            overflow: hidden;
+        }
+
+        .ant-modal-content {
+            max-height: calc(100vh - 100px);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+
+            .ant-modal-body {
+                max-height: calc(100vh - 200px);
+                overflow-y: auto; // padding-bottom: 65px;
+                overflow-x: hidden;
+            }
+        }
+    }
+
+    &.ant-modal {
+        top: 50px;
+        max-height: 100vh;
+        overflow: hidden;
+
+        .ant-modal-body {
+            padding: 32px 0 24px;
+        }
+
+        .ant-modal-confirm-btns,
+        .ant-modal-confirm-title,
+        .ant-modal-confirm-content {
+            padding: 0 32px;
+        }
+
+        .ant-modal-confirm-content {
+            max-height: calc(100vh - 130px);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    }
+}

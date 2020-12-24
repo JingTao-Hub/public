@@ -1,0 +1,142 @@
+@import "../color/index.scss";
+@import "../themes/index.scss";
+
+// 全屏
+.ant-collapse-content-box {
+    background: $white;
+}
+
+// .demo-loading-data{
+//     display: inline-block;
+//     width: 100%
+// }
+.demo-collapse-refFullscreen {
+    background: $white;
+    // position: relative;
+
+    // transition: all .1s;
+    .ant-table-body {
+        transition: all .1s;
+    }
+
+    &.demo-refFullscreen {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 99;
+        padding: 20px;
+    }
+}
+
+
+// 折叠面板
+.demo-collapse-default {
+    background: transparent;
+    border: none;
+
+    .ant-divider,
+    .ant-divider-vertical {
+        margin: 0 3px;
+    }
+
+    //    .ant-collapse-item:last-child,
+    //    .ant-collapse-item:last-child>.ant-collapse-header {
+    //         border: none;
+    //     }
+    &.ant-collapse>.ant-collapse-item,
+    .ant-collapse-content {
+        border: none;
+    }
+
+    .ant-collapse-content>.ant-collapse-content-box {
+        padding: 8px 16px;
+    }
+
+    .ant-collapse-header {
+        font-size: $font-size-lg;
+        color: $black-3;
+        overflow: hidden;
+    }
+
+    // .ant-collapse-item {
+    //     // margin-top: 10px;
+    //     background: $white;
+
+    //     &::before {
+    //         background: $white-f5;
+    //         display: block;
+    //         content: '';
+    //         width: 100%;
+    //         height: 8px;
+    //     }
+
+    //     &:first-child {
+    //         // margin-top: 0;
+    //     }
+    // }
+
+}
+ .demo-collapse-default{
+    .ant-collapse-item {
+        // margin-top: 10px;
+        background: $white;
+        &::before {
+            background: $white-f5;
+            display: block;
+            content: '';
+            height: 8px;
+            margin: 0 -10px;
+        }
+        &:first-child {
+            // margin-top: 0;
+            &::before {
+               display: none;
+            }
+        }
+    }
+}
+.ant-table-pagination.ant-pagination {
+    float: none;
+    text-align: right;
+    margin-bottom: 0;
+}
+
+// 操作列
+.demo-table-action {
+    .ant-btn-link {
+        color: $black-3;
+    }
+
+    .ant-divider {
+        background: transparent;
+        margin: 0;
+    }
+
+    .demo-table-action-right {
+        flex: 1;
+        text-align: right;
+    }
+}
+.ant-descriptions-row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.page-demo-table .ant-descriptions-row>td{
+             display: flex;
+             width: 25%;
+}
+.ant-descriptions-item-content {
+
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+// 菜单选择颜色
+.ant-menu.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+    background-color: $bg-selected;
+}

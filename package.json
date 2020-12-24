@@ -1,0 +1,26 @@
+{
+  "name": "@jing/public",
+  "version": "0.0.1",
+  "main": "src/index.tsx",
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [],
+  "author": "jingtao <5025734@163.com> (https://github.com/JingTao-Hub)",
+  "license": "ISC",
+  "description": "",
+  "gitHead": "9f986a0907b2f3e0cf982b2175ee554e106dda8e",
+  "dependencies": {},
+  "devDependencies": {
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [],
+    "development": []
+  }
+}

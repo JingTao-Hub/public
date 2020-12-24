@@ -1,0 +1,91 @@
+.ant-form-item-control.has-error {
+    .app-editor-card {
+        border-color: #f5222d;
+        transform: all .2s;
+    }
+}
+
+.app-editor-card-html {
+    .DraftEditor-editorContainer {
+        display: none;
+    }
+}
+
+.demo-dialog.ant-modal {
+    .CodeMirror {
+        min-height: 300px;
+        height: auto;
+    }
+
+    .CodeMirror-scroll {
+        min-height: 300px;
+    }
+}
+
+.demo-edit-CodeMirror {
+    z-index: 10;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: all .2s;
+    background-color: #263238;
+
+    .CodeMirror {
+        z-index: 10;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+    }
+
+    &.demo-edit-CodeMirror-Fullscreen {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 99;
+
+        .react-codemirror2 {
+            height: 100%;
+        }
+
+        .CodeMirror {
+            height: 100%;
+        }
+    }
+
+    .demo-edit-CodeMirror-btn {
+        position: absolute;
+        right: 10px;
+        z-index: 11;
+    }
+}
+.card-Controlled{
+    position: relative;
+    height: 500px;
+    // padding: 5px;
+    .ant-card-body{
+        padding: 5px;
+    }
+    .react-codemirror2{}
+    .CodeMirror{
+        z-index: 10;
+        position: absolute;
+        left: 5px;
+        right: 5px;
+        top: 5px;
+        bottom: 5px;
+        height: 100%;
+    }
+    .demo-edit-CodeMirror-btn {
+        position: absolute;
+        right: 18px;
+        top: 6px;   
+        z-index: 11;
+    }
+}

@@ -1,0 +1,375 @@
+@import "../../../style/themes/index.scss";
+$header-h:60px;
+$background:$bg-layout;
+
+.demo-layout-main {
+    min-height: 100vh;
+    color: $white;
+    padding-top: $header-h;
+
+    >.demo-layout-content {
+        padding: 12px;
+
+        @media (max-width: 900px) {
+            padding: 5px;
+        }
+    }
+}
+
+.demo-layout-outer {
+    padding: 12px;
+
+    // @media (max-width: 500px) {
+    //     padding: 0px;
+    // }
+    @media (max-width: 900px) {
+        padding: 5px;
+    }
+}
+
+// 页面主容器
+.demo-layout-content {
+    position: relative;
+    padding: 20px 60px;
+
+    >div {
+        background: $white;
+        height: 100%;
+    }
+
+    // @media (max-width: 500px) {
+    //     padding:8px;
+    // }
+    @media (max-width: 900px) {
+        padding: 5px;
+    }
+}
+
+// 头
+.demo-layout-header.ant-layout-header {
+    z-index: 11;
+    position: relative;
+    // overflow: hidden;
+    user-select: none;
+    display: flex;
+    height: $header-h;
+    line-height: $header-h;
+    background: $background;
+    font-size: $font-size-xl;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    // box-shadow:0px 2px 4px 0px rgba(218,218,218,0.5);
+    .ant-menu-dark {
+        background: $background;
+
+        .ant-menu-item-selected {
+            background-color: $background;
+        }
+    }
+
+    .ant-menu-submenu,
+    .ant-menu-item {
+        line-height: $header-h;
+        font-size: $font-size-base;
+    }
+
+    >.ant-row-flex {
+        width: 100%;
+    }
+
+    .demo-logo {
+        padding-right: $header-h+10;
+        padding-left: $header-h;
+        height: $header-h;
+        position: relative;
+
+        >img {
+            width: $header-h;
+            height: $header-h;
+            display: inline-block;
+            background: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        >span {
+            margin: 0 12px 0 14px;
+            color: $white;
+
+            >* {
+                display: inline-block;
+                color: $white;
+            }
+        }
+    }
+
+    // 菜单
+    .demo-menu {
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .demo-open-search {
+        transition: all .2s;
+
+        // 菜单
+        &.demo-menu {
+            flex: 0;
+            opacity: 0;
+        }
+
+        // 搜索
+        &.demo-search {
+            flex: 1;
+
+            .demo-open-search-btn {
+                opacity: 0;
+            }
+        }
+
+        .demo-search-body {
+            opacity: 1;
+            position: relative;
+
+            .demo-search-list {
+                display: block;
+            }
+
+            .ant-modal-mask {
+                z-index: 11;
+                opacity: 1;
+                height: 100%;
+                overflow: initial;
+            }
+        }
+
+    }
+
+    // 搜索 
+    .demo-search-body {
+        height: $header-h;
+        opacity: 0;
+        transition: all .2s;
+        position: absolute;
+        background: $background;
+
+        .ant-input-affix-wrapper {
+            max-width: 700px;
+            width: auto;
+            height: $header-h;
+            padding: 10px 0;
+            margin: auto;
+            display: block;
+            position: relative;
+            top: -$header-h;
+            background: $background;
+
+            .ant-input-prefix,
+            .ant-input-suffix {
+                color: $white;
+            }
+
+            .ant-input {
+                color: $white;
+                border: none;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        .demo-search-list {
+            position: relative;
+            background: $white;
+            max-width: 700px;
+            width: auto;
+            margin: auto;
+            top: -$header-h;
+            display: none;
+            // padding: 30px 50px;
+        }
+
+        // 蒙城
+        .ant-modal-mask {
+            top: $header-h;
+            overflow: hidden;
+            height: 0;
+            // transition: all .2s;
+        }
+    }
+
+    .demo-search {
+        position: relative;
+
+        .demo-open-search-btn {
+            position: relative;
+            z-index: 9;
+        }
+
+        .ant-input-affix-wrapper .ant-input-prefix,
+        .ant-input-affix-wrapper .ant-input-suffix {
+            background: transparent !important;
+        }
+
+    }
+
+    .demo-search,
+    .demo-user {
+        height: 100%;
+
+        a {
+            height: 100%;
+            display: inline-block;
+            color: $white;
+            font-size: $font-size-base;
+            margin: 0 10px;
+        }
+    }
+
+    .demo-user {
+        @media (max-width: 500px) {
+            display: none
+        }
+    }
+}
+
+// 响应左侧菜单
+.demo-layout-sider-drawer {
+    .ant-drawer-wrapper-body {
+        // background-color: $background;
+    }
+
+    .ant-drawer-body {
+        padding: 0;
+    }
+}
+
+// 头部 悬浮 菜单
+.demo-layout-header-menu {
+    margin: 0 !important;
+    background: $white;
+    width: 100%;
+    position: fixed;
+    top: $header-h;
+    z-index: 10;
+    height: 0;
+    min-height: 0px;
+    max-height: 80vh;
+    transition: all .2s;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    user-select: none;
+    box-shadow: 0px 1px 2px 0px rgba(197, 197, 197, 0.5);
+    opacity: 0;
+
+    // 选入菜单开启
+    &.header-menu-open {
+        min-height: 200px;
+        height: auto;
+        opacity: 1;
+    }
+
+    // 菜单
+    .demo-menu {
+        text-align: left;
+        margin: 30px 0;
+        border: none;
+
+        &.ant-menu-vertical {
+            border: none;
+        }
+
+        .ant-menu-selected::after,
+        .ant-menu-item-selected::after {
+            display: none;
+        }
+
+        .ant-menu-item-group-title {
+            color: $black-3;
+            font-size: $font-size-xl;
+
+            .anticon {
+                margin-right: 12px;
+            }
+        }
+
+        .ant-menu-item {
+            margin: 0;
+            color: $black-6;
+            font-size: $font-size-base;
+        }
+
+    }
+}
+
+.ant-menu-item>a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ant-tooltip-inner {
+    .anticon {
+        margin-right: 5px;
+    }
+}
+
+.demo-layout-sider.ant-layout-sider {
+    position: fixed !important;
+    top: $header-h;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    user-select: none;
+    // .ant-menu-dark,
+    // .ant-menu-dark .ant-menu-inline.ant-menu-sub,
+    // &.ant-layout-sider {
+    //     background: $background;
+    // }
+
+    &.ant-layout-sider-collapsed {
+        min-width: $header-h !important;
+        max-width: $header-h !important;
+        width: $header-h !important;
+        flex: 0 0 $header-h !important;
+    }
+
+    .ant-menu-inline-collapsed>.ant-menu-item,
+    .ant-menu-inline-collapsed>.ant-menu-item-group>.ant-menu-item-group-list>.ant-menu-item,
+    .ant-menu-inline-collapsed>.ant-menu-item-group>.ant-menu-item-group-list>.ant-menu-submenu>.ant-menu-submenu-title,
+    .ant-menu-inline-collapsed>.ant-menu-submenu>.ant-menu-submenu-title {
+        padding: 0 22px !important;
+    }
+
+    .ant-menu-inline-collapsed {
+        width: $header-h;
+    }
+
+    .ant-menu-vertical .ant-menu-item::after,
+    .ant-menu-vertical-left .ant-menu-item::after,
+    .ant-menu-vertical-right .ant-menu-item::after,
+    .ant-menu-inline .ant-menu-item::after {
+        right: auto;
+        left: 0;
+    }
+}
+
+.demo-layout-outer-spin {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $white;
+}
+
+.demo-layout-content-spin {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

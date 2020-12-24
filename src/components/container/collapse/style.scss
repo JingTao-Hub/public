@@ -1,0 +1,18 @@
+.demo-collapse {
+    .demo-collapse-btns {
+        text-align: right;
+        @media (min-width: 1200px) {
+            padding-top: 25px;
+            &.ant-col-xl-24 {
+                padding-top: 0;
+            }
+        }
+    }
+    .ant-form-item{
+        margin-bottom: 5px;
+    }
+    .demo-collapse-btn-expand {
+        margin-left: 10px;
+    }
+
+}
