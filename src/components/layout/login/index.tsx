@@ -2,8 +2,8 @@
 import { Col, Layout, Row, Typography } from 'antd';
 import * as React from 'react';
 import lodash from 'lodash';
-import logo from './images/logo.png';
-import code from './images/code.png';
+// import logo from './images/logo.png';
+// import code from './images/code.png';
 import imgCode from './imgCode';
 import './style.scss';
 const { Header, Content, Sider, Footer } = Layout;
@@ -33,13 +33,13 @@ export class LayoutLogin extends React.Component<{
               </Typography>
             </Col>
             <Col lg={6} md={24} className='demo-login-codeimg'>
-              <img src={lodash.get(this.props, 'code', code)} alt="" width="88" height="88" />
+              {/* <img src={lodash.get(this.props, 'code', code)} alt="" width="88" height="88" /> */}
               <p>IT Service everywhere</p>
               <p>Scan to download</p>
             </Col>
           </Row>
           <div className="demo-login-record">
-            Help    Contact us    @2019 demo.All rights reserved
+            Help    Contact us    @2020 demo.All rights reserved
           </div>
         </Footer>
       </Layout>
@@ -71,9 +71,9 @@ class Main extends React.Component<any, any>{
   render() {
     return (
       <Layout className={this.state.loginBck}>
-        <Header>
+        {/* <Header>
           <img className='demo-login-logo' src={logo} alt="" width="144" height="48" />
-        </Header>
+        </Header> */}
         <Content>
           <div className='demo-login-form'>
             {this.props.children}
