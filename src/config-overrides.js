@@ -6,6 +6,7 @@ const moment = require('moment');
 const lodash = require('lodash');
 const path = require('path');
 const fs = require('fs');
+const releasePlugin = require('./releasePlugin');
 // const { override, fixBabelImports, addLessLoader, disableEsLint } = require('customize-cra');
 process.argv.map(val => {
   if (lodash.endsWith(val, 'scripts/build.js') && lodash.isNil(process.env.GENERATE_SOURCEMAP)) {
@@ -13,7 +14,7 @@ process.argv.map(val => {
   }
 });
 process.env.REACT_APP_TIME = moment().format('YYYY-MM-DD HH:mm:ss') + ' @荆（5025734@163.com）';
-module.exports = ({ override, fixBabelImports, addLessLoader, addBundleVisualizer, disableEsLint, addWebpackModuleRule, babelInclude}) => {
+module.exports = ({ override, fixBabelImports, addLessLoader, addBundleVisualizer, disableEsLint, addWebpackModuleRule, babelInclude, addWebpackPlugin}, injectionFiles) => {
   // const appDirectory = fs.realpathSync(process.cwd());
   // const resolveApp = relativePath => {
   //   return path.resolve(path.dirname(appDirectory), relativePath, 'src')
@@ -69,6 +70,7 @@ module.exports = ({ override, fixBabelImports, addLessLoader, addBundleVisualize
         "analyzerMode": "static",
         "reportFilename": "report.html"
       }, true),
+      addWebpackPlugin(new releasePlugin(config, injectionFiles)),
       disableEsLint(),
     )(config, env);
     //模块解析 位置
