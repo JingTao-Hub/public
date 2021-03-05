@@ -33,17 +33,17 @@ const Positions = {
   left: 'left'
 }
 
-interface IRouteProps extends RouteProps{
-  route?:any
-  unListen?:any
-  history?:any
-  homeUrl?:string
-  menus?:any[]
-  breadcrumb?:boolean
+interface IRouteProps extends RouteProps {
+  route?: any
+  unListen?: any
+  history?: any
+  homeUrl?: string
+  menus?: any[]
+  breadcrumb?: boolean
 }
 //@ts-ignore
 @withRouter
-class RouterTabs extends Component<IRouteProps,any> {
+class RouterTabs extends Component<IRouteProps, any> {
   didUnMounted = false
   notListenOnce = false
   tags = []
@@ -73,12 +73,18 @@ class RouterTabs extends Component<IRouteProps,any> {
 
   // 首页
   renderHome = () => {
-    const {homeUrl, history, location: { pathname } } = this.props;
-    const {  search } = location
+    const { homeUrl, history, location: { pathname } } = this.props;
+    const { search } = location
     if (pathname == '/') {
+      const menu = this.props.menus.find(item => {
+        return item.path === homeUrl
+      })
       history.push({
         pathname: homeUrl,
         search
+      })
+      this.setState({
+        pages: [menu]
       })
     } else if (pathname != homeUrl && this.state.pages.length == 0) {
       history.push({
@@ -86,41 +92,65 @@ class RouterTabs extends Component<IRouteProps,any> {
         search
       })
     }
-  
 
 
-    
+
+
   }
-  unListen=()=>{
-    const {homeUrl, history, location: { pathname } } = this.props;
+  unListen = () => {
+    const { homeUrl, history, location: { pathname } } = this.props;
     // 获取路由唯一key
-    const curKey = pathname|| "/";
+    const curKey = pathname || "/";
     if (!this.tabMap[curKey]) {
       // 路由配置
-      const routeInfo = getRouteInfo(pathname) || getRouteInfo("/exception/404")||{};
+      const routeInfo = getRouteInfo(pathname) || getRouteInfo("/exception/404") || {};
       // 菜单配置
       const menuInfo = this.getMenuInfo(pathname) || {};
-      console.log(menuInfo,routeInfo)
-      this.setState(
-        {curPage:{
-          pageId: curKey,
-          path: pathname,
-        },pages:[{
-            pageId: curKey,
-            ...routeInfo,
-            ...menuInfo,
-            name: menuInfo.name || routeInfo.name,
-            // search: _location.search
-          }]}
-      )
-      this.tabMap[curKey] = {
-        path: pathname,
-        api:undefined,
+
+      const path = this.props.menus.find(item => {
+        return item.path === homeUrl
+      })
+      if (pathname === '/') {
+        this.setState(
+          {
+            curPage: {
+              pageId: path.path,
+              path: path.path,
+            }, 
+            pages: [{ ...path, pageId: path.path }]
+          }
+        )
+        this.tabMap[path.path] = {
+          path: path.path,
+          api: undefined,
+        }
+      } else {
+        if (routeInfo.path) {
+          this.setState(
+            {
+              curPage: {
+                pageId: curKey,
+                path: pathname,
+              }, 
+              pages: [{
+                pageId: curKey,
+                ...routeInfo,
+                ...menuInfo,
+                name: menuInfo.name || routeInfo.name,
+                // search: _location.search
+              }]
+            }
+          )
+          this.tabMap[curKey] = {
+            path: pathname,
+            api: undefined,
+          }
+        }
       }
     }
   }
   componentDidMount() {
-    const { homeUrl } =this.props
+    const { homeUrl } = this.props
     if (this.unListen) {
       this.unListen();
       this.unListen = null;
@@ -149,14 +179,12 @@ class RouterTabs extends Component<IRouteProps,any> {
       // 
       // 获取路由唯一key
       const curKey = this.getFullPathName(pathname, query) + "";
-      console.log(this.tabMap,curKey,this.props)
       if (!this.tabMap[curKey]) {
         // 路由配置
         const routeInfo = getRouteInfo(pathname) || getRouteInfo("/exception/404");
 
         // 菜单配置
         const menuInfo = this.getMenuInfo(pathname) || {};
-        console.log(menuInfo, routeInfo,query.titleName)
         newPages.push({
           pageId: curKey,
           ...routeInfo,
@@ -165,14 +193,12 @@ class RouterTabs extends Component<IRouteProps,any> {
           search: _location.search
         });
       }
-      console.log(this.tabMap)
       // 保存对应页面信息
       this.tabMap[curKey] = {
         path: pathname,
         search,
-        api:undefined,
+        api: undefined,
       }
-
       this.setState({
         curPage: {
           pageId: curKey,
@@ -191,15 +217,13 @@ class RouterTabs extends Component<IRouteProps,any> {
     }
   }
 
-  getFullPathName = (pathname, query = {pageId:undefined}) => {
+  getFullPathName = (pathname, query = { pageId: undefined }) => {
     return query.pageId ? query.pageId : pathname;
   }
 
   getMenuInfo = (pathname) => {
     const { menus } = this.props
-    
-    console.log(menus,pathname)
-    let obj = menus.find(item=>{
+    let obj = menus.find(item => {
       return item.path === pathname
     })
     return obj || {}
@@ -225,7 +249,6 @@ class RouterTabs extends Component<IRouteProps,any> {
   handleClose = (pageId) => this.handleEditTab(pageId, 'remove')
 
   handleClickTag = (tag, e) => {
-    console.log(tag,e)
     if (e && e.key.toLowerCase() === 'i') {
       return;
     }
@@ -254,9 +277,9 @@ class RouterTabs extends Component<IRouteProps,any> {
    * @param {tag 点击} e 
    */
   handleMenuClick = (e) => {
-    const { history ,homeUrl} = this.props
+    const { history, homeUrl } = this.props
     const eKey = e.key;
-    let curPageId = this.getFullPathName(this.props.location.pathname,this.props.location['query']);
+    let curPageId = this.getFullPathName(this.props.location.pathname, this.props.location['query']);
 
     if (eKey === '1') {
       curPageId = homeUrl;
@@ -265,7 +288,7 @@ class RouterTabs extends Component<IRouteProps,any> {
       this.tabMap = {
         [`${homeUrl}`]: this.tabMap[homeUrl]
       }
-      setTimeout(() => this.setState({ pages ,curPage}))
+      setTimeout(() => this.setState({ pages, curPage }))
     } else if (eKey === '2') {
       if (curPageId === homeUrl) {
         this.handleMenuClick({ key: '1' });
@@ -278,7 +301,7 @@ class RouterTabs extends Component<IRouteProps,any> {
         setTimeout(() => this.setState({ pages }))
       }
     } else { // 切换
-      this.handleClickTag(eKey,e);
+      this.handleClickTag(eKey, e);
       return;
     }
 
@@ -325,7 +348,7 @@ class RouterTabs extends Component<IRouteProps,any> {
    * @param {*} pageId 
    */
   clearRouteInfo = pageId => {
-    const {homeUrl, history } = this.props
+    const { homeUrl, history } = this.props
     const {
       curPage,
       pages,
@@ -339,16 +362,16 @@ class RouterTabs extends Component<IRouteProps,any> {
       }
       if (pages.length > 0) {
         if (curPage.pageId == pageId) {
-          if(pages.length == 1){
+          if (pages.length == 1) {
             this.setState({
-              curPage:{
-                pageId:pages[0].pageId,
-                path:pages[0].path
+              curPage: {
+                pageId: pages[0].pageId,
+                path: pages[0].path
               },
               pages,
             })
-            return ;
-          }else{
+            return;
+          } else {
             history.goBack();
           }
         }
@@ -378,6 +401,16 @@ class RouterTabs extends Component<IRouteProps,any> {
   render() {
     const { curPage, pages, ...otherProps } = this.state;
     this.tags = pages.map(({ pageId, path: pathname, name, icon }, index) => {
+      if (pageId === '/') {
+        const data = this.props.menus.find(item => {
+          return item.path === this.props.homeUrl
+        })
+        pageId = data.path
+        pathname = data.path
+        name = data.name
+        icon = data.icon
+      }
+
       const title = name || this.props.homeUrl;
       const isLonger = title.length > 30; // 标题过长处理
       const tagElem = (
@@ -413,7 +446,7 @@ class RouterTabs extends Component<IRouteProps,any> {
     }
     >
       <Tag color="#2d8cf0"
-        style={{ marginLeft: 12,padding:'2px 7px' }}>
+        style={{ marginLeft: 12, padding: '2px 7px' }}>
         标签选项 <Icon type="down" />
       </Tag>
     </Dropdown>
@@ -428,7 +461,7 @@ class RouterTabs extends Component<IRouteProps,any> {
             <div>
               {operations}
               <Button icon='reload' className={styles.tabRefresh} onClick={() => {
-                if (this.tabMap[curPage.pageId]&&this.tabMap[curPage.pageId].api) {
+                if (this.tabMap[curPage.pageId] && this.tabMap[curPage.pageId].api) {
                   this.tabMap[curPage.pageId].api.refresh();
                 }
               }} />
@@ -442,7 +475,7 @@ class RouterTabs extends Component<IRouteProps,any> {
                 tab={<span>{getIcon(it.icon)} {it.name}</span>}
                 key={it.pageId}
               >
-                
+
               </TabPane>
             )
             )
