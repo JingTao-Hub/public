@@ -277,39 +277,41 @@ class RouterTabs extends Component<IRouteProps, any> {
    * @param {tag 点击} e 
    */
   handleMenuClick = (e) => {
-    const { history, homeUrl } = this.props
+    const { homeUrl, history, location: { pathname } } = this.props;
+    const { search } = location
     const eKey = e.key;
     let curPageId = this.getFullPathName(this.props.location.pathname, this.props.location['query']);
 
     if (eKey === '1') {
       curPageId = homeUrl;
-      const pages = [this.state.pages[0]]
-      const curPage = this.state.pages[0];
+      let page=this.props.menus.find(item=>{
+          return item.path===homeUrl
+      })
+      page.pageId=homeUrl
+      const pages = [page]
+      const curPage = page;
       this.tabMap = {
         [`${homeUrl}`]: this.tabMap[homeUrl]
       }
+      history.push( {
+        pathname: homeUrl,
+        search
+      })
       setTimeout(() => this.setState({ pages, curPage }))
     } else if (eKey === '2') {
-      if (curPageId === homeUrl) {
-        this.handleMenuClick({ key: '1' });
-      } else {
-        const pages = this.state.pages.filter(it => it.path == homeUrl || it.path == curPageId);
+      // if (curPageId === homeUrl) {
+      //   this.handleMenuClick({ key: '1' });
+      // } else {
+        const pages = this.state.pages.filter(it =>  it.path == curPageId);
         this.tabMap = {
-          [`${homeUrl}`]: this.tabMap[homeUrl],
+          // [`${homeUrl}`]: this.tabMap[homeUrl],
           [`${curPageId}`]: this.tabMap[curPageId],
         }
         setTimeout(() => this.setState({ pages }))
-      }
+      // }
     } else { // 切换
       this.handleClickTag(eKey, e);
       return;
-    }
-
-    if (curPageId !== this.state.curPage.pageId) {
-      // history.push({
-      //   pathname: this.props.location.pathname,
-      //   search: this.getSearchMapParams(curPageId)
-      // });
     }
   }
 
@@ -348,7 +350,9 @@ class RouterTabs extends Component<IRouteProps, any> {
    * @param {*} pageId 
    */
   clearRouteInfo = pageId => {
-    const { homeUrl, history } = this.props
+    console.log(pageId)
+    const { homeUrl, history, location: { pathname } } = this.props;
+    const { search } = location
     const {
       curPage,
       pages,
@@ -369,6 +373,10 @@ class RouterTabs extends Component<IRouteProps, any> {
                 path: pages[0].path
               },
               pages,
+            })
+            history.push({
+              pathname: pages[0].path,
+              search
             })
             return;
           } else {
